@@ -1,4 +1,4 @@
-# Kirkpatrick point location algorythm 
+# Kirkpatrick point location algorithm 
 
 early aplha
 
