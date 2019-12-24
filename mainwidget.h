@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "point.h"
+#include "graph.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWidget; }
@@ -26,7 +27,7 @@ private:
     Graph *graph;
     View *view;
     std::vector<Point> vertices;
-    std::vector<std::vector<unsigned int>> polygons;
+    std::vector<Polygon> polygons;
     Ui::MainWidget *ui;
 };
 #endif // MAINWIDGET_H

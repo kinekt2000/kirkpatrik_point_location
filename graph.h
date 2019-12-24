@@ -8,6 +8,7 @@
 class Vertex{
 public:
     Vertex(const Point &point, int n);
+    Vertex(const Vertex *point);
     ~Vertex();
     void unboundVertex(Vertex *vertex);
     void boundVertex(Vertex *vertex);
@@ -17,7 +18,7 @@ public:
     double y() const;
     int index() const;
 
-    Point point();
+    Point point() const;
 
 private:
     double pos_x;
@@ -26,19 +27,35 @@ private:
     std::set<Vertex*> adjacent_vertices;
 };
 
+
+struct Polygon{
+    std::vector<unsigned int> points;
+    unsigned int n;
+};
+
+
 class Graph
 {
 public:
     Graph(const std::vector<Point> &points);
+    Graph(const std::vector<Vertex*> &vertices);
+
     const Vertex& operator[](unsigned int i) const;
     unsigned int verticesCount() const;
-    void setPolygons(const std::vector<std::vector<unsigned int>> &polygons);
+
+    void setPolygons(const std::vector<Polygon> &polygons);
+    void addPolygon(const Polygon &polygon);
     void installEdgesFromPolygons();
 
     void setOuterTriangleVertices();
+    void triangulateOuterTriangle(const std::vector<Vertex*> &hull);
+
+    std::vector<Vertex*> grahamScan();
 
 private:
-    std::vector<std::vector<unsigned int>> polygons;
+    Vertex* getVertex(unsigned int n);
+
+    std::vector<Polygon> polygons;
     std::vector<Vertex*> vertices;
 };
 

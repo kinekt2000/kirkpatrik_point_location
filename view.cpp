@@ -37,6 +37,7 @@ void View::drawGraph(const Graph *graph){
             if(i < unsigned(adjacent->index())){
                 QGraphicsLineItem *edge = new QGraphicsLineItem((*graph)[i].x(), (*graph)[i].y(), adjacent->x(), adjacent->y());
                 edge->setPen(pen);
+                edge->setZValue(-1);
                 scene()->addItem(edge);
             }
         }
@@ -45,6 +46,7 @@ void View::drawGraph(const Graph *graph){
         pen.setWidth(0);
         vertex->setPen(pen);
         vertex->setBrush(Qt::red);
+        vertex->setZValue(1);
 
         scene()->addItem(vertex);
     }

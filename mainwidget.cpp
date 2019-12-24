@@ -49,12 +49,12 @@ void MainWidget::on_open_button_clicked()
         size_t m;   // Count of vertices in a polygon
         file >> m;
 
-        std::vector<unsigned int> polygon;
+        Polygon polygon;
         for(size_t j = 0; j < m; j++){
             unsigned int k;
             file >> k;
             k--;
-            polygon.push_back(k);
+            polygon.points.push_back(k);
         }
         polygons.push_back(polygon);
     }
@@ -63,7 +63,21 @@ void MainWidget::on_open_button_clicked()
     graph->setPolygons(polygons);
     graph->installEdgesFromPolygons();
 
+    std::vector<Vertex*> hull = graph->grahamScan();
+
     graph->setOuterTriangleVertices();
 
+    graph->triangulateOuterTriangle(hull);
+    graph->installEdgesFromPolygons();
+
     view->drawGraph(graph);
+
+//    Graph *convex_hull = new Graph(hull);
+
+//    convex_hull->setOuterTriangleVertices();
+//    convex_hull->triangulateOuterTriangle(hull);
+
+//    view->drawGraph(convex_hull);
+
+
 }
